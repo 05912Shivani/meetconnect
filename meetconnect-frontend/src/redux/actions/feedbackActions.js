@@ -2,7 +2,8 @@ export const fetchFeedback = (interviewId) => async (dispatch) => {
     dispatch({ type: "FETCH_FEEDBACK_REQUEST" });
   
     try {
-      const response = await fetch(`http://localhost:5000/api/feedback/fetch/${interviewId}`, {
+      const response = await fetch(`https://meet-connect-backend.onrender.com/api/feedback/fetch/${interviewId}`
+, {
         method: "GET",
         credentials: "include", // Ensures session authentication
       });
@@ -30,7 +31,8 @@ export const fetchFeedback = (interviewId) => async (dispatch) => {
         feedbackData.rating = 0;  // Set a default rating if missing
       }
   
-      const response = await fetch("http://localhost:5000/api/feedback/create", {
+      const response = await fetch("https://meet-connect-backend.onrender.com/api/feedback/create"
+, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
