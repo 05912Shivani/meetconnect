@@ -14,7 +14,7 @@ const MyProfile = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/auth/profile", {
+        const response = await fetch("https://meet-connect-backend.onrender.com/api/auth/profile", {
           credentials: "include", // Include cookies for session auth
         });
         const data = await response.json();
@@ -44,7 +44,7 @@ const MyProfile = () => {
 
   const handleUpdateProfile = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/profile/update", {
+      const response = await fetch("https://meet-connect-backend.onrender.com/api/auth/profile/update", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
