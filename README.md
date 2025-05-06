@@ -30,7 +30,7 @@ candidates with interviewers for practice sessions.
 - MongoDB (Mongoose)
 - Express-session for authentication
 
-- 
+
 ## 🧪 How to Run
 
 ### 1. Clone the repository
