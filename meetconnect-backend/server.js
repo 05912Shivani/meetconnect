@@ -79,6 +79,9 @@ app.use(cors({
   credentials: true,
 }));
 
+// 🛡️ This line is important for platforms like Render
+app.set('trust proxy', 1);
+
 // ✅ Secure session configuration for cross-site cookies
 app.use(
   session({
