@@ -8,7 +8,8 @@ export const loginUser = createAsyncThunk(
     try {
       console.log("API Call Started:", userData); 
 
-      const response = await axios.post("http://localhost:5000/api/auth/login", userData, {
+      const response = await axios.post("https://meet-connect-backend.onrender.com/api/auth/login"
+, userData, {
         withCredentials: true,
       });
 
@@ -26,7 +27,8 @@ export const logoutUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       
-      await axios.post("http://localhost:5000/api/auth/logout", {}, { withCredentials: true });
+      await axios.post("https://meet-connect-backend.onrender.com/api/auth/logout"
+, {}, { withCredentials: true });
 
       
       
