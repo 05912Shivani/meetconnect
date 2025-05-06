@@ -2,9 +2,10 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
 
 const PracticeResource = () => {
+  // Get the logged-in user from Redux store
   const user = useSelector((state) => state.auth.user);
-  const [showLoginPopup, setShowLoginPopup] = useState(false);
 
+  // State variables for UI and data
   const [selectedType, setSelectedType] = useState("Behavioral");
   const [questions, setQuestions] = useState([]);
   const [blogs, setBlogs] = useState([]);
@@ -14,12 +15,9 @@ const PracticeResource = () => {
 
   const questionsPerPage = 10;
 
+  // Fetch questions if user is logged in
   const fetchQuestions = useCallback(async () => {
-    if (!user) {
-      setShowLoginPopup(true);
-      return;
-    }
-
+    if (!user) return;// Exit if user not logged in
     setLoading(true);
     setError(null);
     try {
@@ -29,6 +27,7 @@ const PracticeResource = () => {
       );
       if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
       const data = await response.json();
+       // Filter by category
       const filteredQuestions = data.questions.filter(q => q.category === selectedType);
       setQuestions(filteredQuestions);
     } catch (error) {
@@ -38,12 +37,9 @@ const PracticeResource = () => {
     setLoading(false);
   }, [selectedType, user]);
 
+    // Fetch blogs if user is logged in
   const fetchBlogs = useCallback(async () => {
-    if (!user) {
-      setShowLoginPopup(true);
-      return;
-    }
-
+    if (!user) return;
     try {
       const response = await fetch(`http://localhost:5000/api/blogs?category=${selectedType}`);
       const data = await response.json();
@@ -54,38 +50,51 @@ const PracticeResource = () => {
   }, [selectedType, user]);
 
   useEffect(() => {
-    fetchQuestions();
-    fetchBlogs();
-  }, [fetchQuestions, fetchBlogs]);
+    if (user) {
+      fetchQuestions();
+      fetchBlogs();
+    }
+  }, [fetchQuestions, fetchBlogs, user]);
 
+   // Pagination logic
   const indexOfLastQuestion = currentPage * questionsPerPage;
   const indexOfFirstQuestion = indexOfLastQuestion - questionsPerPage;
   const currentQuestions = questions.slice(indexOfFirstQuestion, indexOfLastQuestion);
 
+  // Handle dropdown change
+  const handleTypeChange = (e) => {
+    if (!user) {
+      alert("Please login first");
+      return;
+    }
+    setSelectedType(e.target.value);
+    setCurrentPage(1);
+  };
+
+   // Handle pagination buttons
+  const handlePageChange = (direction) => {
+    if (!user) {
+      alert("Please login first");
+      return;
+    }
+    setCurrentPage((prev) =>
+      direction === "next"
+        ? Math.min(prev + 1, Math.ceil(questions.length / questionsPerPage))
+        : Math.max(prev - 1, 1)
+    );
+  };
+
   return (
     <div className="relative max-w-7xl mx-auto px-4 py-8">
-      {!user && showLoginPopup && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-            <p className="text-lg text-red-600 font-semibold mb-4">Please log in to access this page.</p>
-            <a href="/login" className="inline-block bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
-              Go to Login
-            </a>
-          </div>
-        </div>
-      )}
-
       <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Practice Interview Questions</h2>
 
       <div className="mb-6 text-center">
         <label className="text-lg font-medium text-gray-700 mr-2">Select Interview Type:</label>
         <select
           value={selectedType}
-          onChange={(e) => {
-            setSelectedType(e.target.value);
-            setCurrentPage(1);
-          }}
-          className="px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-500"
+          onChange={handleTypeChange}
+          disabled={!user}
+          className="px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-500 disabled:opacity-50"
         >
           <option value="Frontend">Frontend Development</option>
           <option value="Backend">Backend Development</option>
@@ -93,12 +102,17 @@ const PracticeResource = () => {
           <option value="Behavioral">Behavioral</option>
           <option value="DSA">DSA</option>
         </select>
+        {!user && (
+          <p className="text-sm text-red-600 mt-2">You must be logged in to interact with this page.</p>
+        )}
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6">
         <div className="lg:w-2/3 bg-white rounded-lg shadow-md p-6">
           <h3 className="text-xl font-semibold text-gray-800 mb-4">Interview Questions</h3>
-          {loading ? (
+          {!user ? (
+            <p className="text-red-600 font-semibold">Login to view questions.</p>
+          ) : loading ? (
             <p className="text-blue-500">Loading questions...</p>
           ) : error ? (
             <p className="text-red-600 font-medium">{error}</p>
@@ -116,10 +130,10 @@ const PracticeResource = () => {
             </p>
           )}
 
-          {questions.length > questionsPerPage && (
+          {user && questions.length > questionsPerPage && (
             <div className="mt-6 flex justify-center items-center gap-4">
               <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                onClick={() => handlePageChange("prev")}
                 disabled={currentPage === 1}
                 className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
               >
@@ -129,9 +143,7 @@ const PracticeResource = () => {
                 Page {currentPage} of {Math.ceil(questions.length / questionsPerPage)}
               </span>
               <button
-                onClick={() =>
-                  setCurrentPage((prev) => Math.min(prev + 1, Math.ceil(questions.length / questionsPerPage)))
-                }
+                onClick={() => handlePageChange("next")}
                 disabled={currentPage === Math.ceil(questions.length / questionsPerPage)}
                 className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
               >
@@ -143,7 +155,9 @@ const PracticeResource = () => {
 
         <div className="lg:w-1/3 bg-white rounded-lg shadow-md p-6">
           <h3 className="text-xl font-semibold text-gray-800 mb-4">Related Blogs</h3>
-          {blogs.length > 0 ? (
+          {!user ? (
+            <p className="text-red-600 font-semibold">Login to view blogs.</p>
+          ) : blogs.length > 0 ? (
             <ul className="list-disc pl-4 space-y-2 text-gray-700">
               {blogs.map((blog, index) => (
                 <li key={index}>
