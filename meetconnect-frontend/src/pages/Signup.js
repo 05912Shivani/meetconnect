@@ -66,9 +66,9 @@ const Signup = () => {
         dob: userData.dob || "2000-01-01",         // Use default DOB or form input
       };
 
-      await axios.post("http://localhost:5000/api/auth/register", payload, {
-        withCredentials: true,
-      });
+      await axios.post("https://meet-connect-backend.onrender.com/api/auth/register", payload, {
+  withCredentials: true,
+});
 
       alert("Signup Successful! Please login.");
       navigate("/login");
