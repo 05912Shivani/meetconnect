@@ -43,10 +43,6 @@ cd meetconnect-backend
 npm install
 npm run dev
 
-cd ../meetconnect-frontend
+cd meetconnect-frontend
 npm install
 npm start
-
-
-## 📁 Project Structure
-
