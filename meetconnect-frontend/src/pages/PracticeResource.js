@@ -21,10 +21,10 @@ const PracticeResource = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(
-        `http://localhost:5000/api/practice/practice-questions?type=${selectedType}`,
-        { credentials: "include" }
-      );
+     const response = await fetch(
+  `https://meet-connect-backend.onrender.com/api/practice/practice-questions?type=${selectedType}`,
+  { credentials: "include" }
+);
       if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
       const data = await response.json();
        // Filter by category
@@ -41,7 +41,7 @@ const PracticeResource = () => {
   const fetchBlogs = useCallback(async () => {
     if (!user) return;
     try {
-      const response = await fetch(`http://localhost:5000/api/blogs?category=${selectedType}`);
+      const response = await fetch(`https://meet-connect-backend.onrender.com/api/blogs?category=${selectedType}`);
       const data = await response.json();
       setBlogs(data.blogs || []);
     } catch (error) {
