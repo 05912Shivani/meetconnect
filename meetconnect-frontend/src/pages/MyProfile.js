@@ -14,7 +14,7 @@ const MyProfile = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/auth/profile", {
+        const response = await fetch("https://meet-connect-backend.onrender.com/auth/profile", {
           credentials: "include", // Include cookies for session auth
         });
         const data = await response.json();
