@@ -2,7 +2,8 @@ export const fetchInterviews = () => async (dispatch) => {
   dispatch({ type: "FETCH_INTERVIEWS_REQUEST" });
 
   try {
-    const response = await fetch("http://localhost:5000/api/interviews", {
+    const response = await fetch("https://meet-connect-backend.onrender.com/api/interviews"
+, {
       method: "GET",
       credentials: "include", // Ensures session authentication
     });
@@ -19,14 +20,14 @@ export const fetchInterviews = () => async (dispatch) => {
 export const scheduleInterview = (interviewData) => async (dispatch) => {
   try {
     console.log("🚀 Sending Interview Data:", interviewData); 
-    const response = await fetch("http://localhost:5000/api/interviews", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include", // Ensures cookies are sent
-      body: JSON.stringify(interviewData),
-    });
+    const response = await fetch("https://meet-connect-backend.onrender.com/api/interviews", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  credentials: "include", // Ensures cookies are sent
+  body: JSON.stringify(interviewData),
+});
 
     if (!response.ok) {
       throw new Error(`Error: ${response.status} - ${response.statusText}`);
