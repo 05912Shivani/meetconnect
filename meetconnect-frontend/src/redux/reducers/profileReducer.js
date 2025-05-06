@@ -16,7 +16,7 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.payload,
-        dob: action.payload.dob ? action.payload.dob.split("T")[0] : "", // ✅ Ensure YYYY-MM-DD format
+        dob: action.payload.dob ? action.payload.dob.split("T")[0] : "", // YYYY-MM-DD format
         loading: false,
       };
 
@@ -27,7 +27,7 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.payload,
-        dob: action.payload.dob ? action.payload.dob.split("T")[0] : "", // ✅ Ensure YYYY-MM-DD format
+        dob: action.payload.dob ? action.payload.dob.split("T")[0] : "", 
       };
 
     default:

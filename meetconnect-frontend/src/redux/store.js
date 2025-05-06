@@ -6,7 +6,7 @@ import { interviewReducer } from "./reducers/interviewReducer";
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    interviewsState: interviewReducer, // ✅ Ensure this key matches `useSelector`
+    interviewsState: interviewReducer, // Ensure this key matches `useSelector`
   },
 });
 

@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const cors = require('cors');
+require('dotenv').config(); // Ensure dotenv is required to load .env variables
 
 const authRoutes = require('./routes/authRoutes');
 const interviewRoutes = require('./routes/interviewRoutes');
@@ -19,17 +20,19 @@ app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 
 
+// Session middleware without secret key (use with caution in production)
 app.use(
   session({
-    secret: "yourSecretKey",
+    secret: process.env.SESSION_SECRET || 'dummySecret', 
     resave: false,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: false, // Change to `true` if using HTTPS
+      secure: false, // Set to `true` if using HTTPS
     },
   })
 );
+
 
 // Routes
 app.use("/api/auth", require("./routes/authRoutes"));
@@ -38,7 +41,7 @@ app.use('/api/feedback', feedbackRoutes);
 app.use("/api/practice", practiceRoutes);
 app.use("/api/blogs", blogRoutes);
 
-mongoose.connect('mongodb://localhost:27017/meetconnect')
+mongoose.connect('mongodb+srv://shivani:shivani0509@cluster0.72ou97n.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 

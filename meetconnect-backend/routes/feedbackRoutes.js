@@ -3,13 +3,13 @@ const { submitFeedback, fetchFeedbackForInterview, getFeedbackByInterviews } = r
 
 const router = express.Router();
 
-// ✅ Route to submit feedback
+// Route to submit feedback
 router.post("/create", submitFeedback);
 
-// ✅ Route to fetch feedback for a specific interview
+// Route to fetch feedback for a specific interview
 router.get("/fetch/:interviewId", fetchFeedbackForInterview);
 
-// ✅ Route to fetch feedback for multiple interviews
+// Route to fetch feedback for multiple interviews
 router.post("/fetch/multiple", getFeedbackByInterviews);
 
 module.exports = router;

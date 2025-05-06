@@ -2,7 +2,7 @@ const Interview = require('../models/Interview');
 
 // Schedule a new interview (Requires Authentication)
 const scheduleInterview = async (req, res) => {
-  const { type, date, time, interviewer, resources = [] } = req.body; // ✅ Added `time`
+  const { type, date, time, interviewer, resources = [] } = req.body; 
 
   try {
     if (!req.session.userId) {
@@ -13,7 +13,7 @@ const scheduleInterview = async (req, res) => {
       userId: req.session.userId,
       type,
       date,
-      time, // ✅ Save `time` in DB
+      time, 
       interviewer,
       resources: Array.isArray(resources) ? resources : [], // Ensure it's always an array
     });

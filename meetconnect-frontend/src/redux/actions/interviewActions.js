@@ -8,7 +8,7 @@ export const fetchInterviews = () => async (dispatch) => {
     });
 
     const data = await response.json();
-    console.log("Fetched Interviews:", data); // 🔍 Debugging
+    console.log("Fetched Interviews:", data); 
 
     dispatch({ type: "FETCH_INTERVIEWS_SUCCESS", payload: data });
   } catch (error) {
@@ -18,7 +18,7 @@ export const fetchInterviews = () => async (dispatch) => {
 
 export const scheduleInterview = (interviewData) => async (dispatch) => {
   try {
-    console.log("🚀 Sending Interview Data:", interviewData); // Debugging
+    console.log("🚀 Sending Interview Data:", interviewData); 
     const response = await fetch("http://localhost:5000/api/interviews", {
       method: "POST",
       headers: {
@@ -33,7 +33,7 @@ export const scheduleInterview = (interviewData) => async (dispatch) => {
     }
 
     const data = await response.json();
-    console.log("✅ Response from API:", data); // Debugging
+    console.log("Response from API:", data); 
     dispatch({ type: "SCHEDULE_INTERVIEW_SUCCESS", payload: data });
 
     // Fetch updated interview list after successful scheduling

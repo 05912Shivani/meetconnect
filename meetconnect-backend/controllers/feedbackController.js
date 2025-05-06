@@ -1,6 +1,6 @@
 const Feedback = require("../models/Feedback");
 
-// ✅ Submit feedback
+// Submit feedback
 const submitFeedback = async (req, res) => {
   try {
     const { interviewId, feedbackText, rating } = req.body;
@@ -24,7 +24,7 @@ const submitFeedback = async (req, res) => {
   }
 };
 
-// ✅ Fetch feedback for a single interview
+// Fetch feedback for a single interview
 const fetchFeedbackForInterview = async (req, res) => {
   try {
     const { interviewId } = req.params;
@@ -36,12 +36,12 @@ const fetchFeedbackForInterview = async (req, res) => {
 
     return res.status(200).json({ feedbacks });
   } catch (error) {
-    console.error("🔥 Error in fetchFeedbackForInterview:", error);
+    console.error("Error in fetchFeedbackForInterview:", error);
     return res.status(500).json({ message: "Internal Server Error", error: error.message });
   }
 };
 
-// ✅ Fetch feedback for multiple interviews
+// Fetch feedback for multiple interviews
 const getFeedbackByInterviews = async (req, res) => {
   try {
     const { interviewIds } = req.body; // Expecting an array of interview IDs
@@ -62,11 +62,11 @@ const getFeedbackByInterviews = async (req, res) => {
 
     res.status(200).json(feedbackMap);
   } catch (error) {
-    console.error("🔥 Error in getFeedbackByInterviews:", error);
+    console.error("Error in getFeedbackByInterviews:", error);
     res.status(500).json({ message: "Error fetching feedback", error });
   }
 };
 
-// ✅ Ensure all functions are exported correctly
+// Ensure all functions are exported correctly
 module.exports = { submitFeedback, fetchFeedbackForInterview, getFeedbackByInterviews };
 

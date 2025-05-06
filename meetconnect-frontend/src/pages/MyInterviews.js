@@ -82,32 +82,38 @@ const MyInterviews = () => {
       [interviewId]: { feedback: feedbackText, rating },
     }));
 
-     // ✅ Clear Input Fields after successful submission
-  setFeedbackInputs((prev) => ({ ...prev, [interviewId]: "" }));
-  setSelectedRating((prev) => ({ ...prev, [interviewId]: "" }));
+    // Clear Input Fields after successful submission
+    setFeedbackInputs((prev) => ({ ...prev, [interviewId]: "" }));
+    setSelectedRating((prev) => ({ ...prev, [interviewId]: "" }));
 
-  // ✅ Show success alert
-  alert("✅ Feedback submitted successfully!");
-
+    // Show success alert
+    alert("Feedback submitted successfully!");
 
     // Fetch updated interviews from backend
     setTimeout(() => {
       dispatch(fetchInterviews("completed"));
     }, 500);
   };
-  
 
   return (
-    <div className="my-interviews p-4">
-      <h2 className="text-xl font-bold">My Interviews</h2>
+    <div className="my-interviews p-6 bg-gray-50 min-h-screen">
+      <h2 className="text-2xl font-bold mb-4">My Interviews</h2>
 
-      <div className="flex gap-4 my-3">
-        <select className="border p-2" onChange={(e) => setFilter(e.target.value)} value={filter}>
+      <div className="flex gap-4 my-4">
+        <select
+          className="border p-2 rounded-md w-1/3"
+          onChange={(e) => setFilter(e.target.value)}
+          value={filter}
+        >
           <option value="upcoming">Upcoming Interviews</option>
           <option value="completed">Completed Interviews</option>
         </select>
 
-        <select className="border p-2" onChange={(e) => setSortType(e.target.value)} value={sortType}>
+        <select
+          className="border p-2 rounded-md w-1/3"
+          onChange={(e) => setSortType(e.target.value)}
+          value={sortType}
+        >
           <option value="">Sort by Interview Type</option>
           <option value="Behavioral">Behavioral Interview</option>
           <option value="DSA">DSA Interview</option>
@@ -117,10 +123,10 @@ const MyInterviews = () => {
         </select>
       </div>
 
-      {loading && <p>Loading interviews...</p>}
-      {error && <p className="text-red-500">{error}</p>}
+      {loading && <p className="text-center text-gray-500">Loading interviews...</p>}
+      {error && <p className="text-center text-red-500">{error}</p>}
 
-      <div className="interview-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="interview-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {finalInterviews.length > 0 ? (
           finalInterviews.map((interview) => {
             const localData = localFeedback[interview._id] || {};
@@ -134,12 +140,12 @@ const MyInterviews = () => {
                 <p className="text-gray-500">Interviewer: {interview.interviewer}</p>
 
                 {filter === "upcoming" && interview.resources?.length > 0 && (
-                  <div className="mt-2">
+                  <div className="mt-3">
                     <h4 className="font-semibold">Resources:</h4>
-                    <ul className="list-disc ml-4">
+                    <ul className="list-disc ml-6">
                       {interview.resources.map((res, index) => (
                         <li key={index}>
-                          <a href={res.link} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+                          <a href={res.link} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
                             {res.title}
                           </a>
                         </li>
@@ -148,16 +154,15 @@ const MyInterviews = () => {
                   </div>
                 )}
 
-
                 {filter === "completed" && (
-                  <div className="mt-2">
+                  <div className="mt-3">
                     <p><strong>Feedback:</strong> {feedbackText}</p>
                     <p><strong>Rating:</strong> {rating}</p>
 
                     {!interview.feedback && !localData.feedback && (
-                      <div className="mt-2">
+                      <div className="mt-4">
                         <textarea
-                          className="border p-2 w-full"
+                          className="border p-2 w-full rounded-md"
                           rows="3"
                           placeholder="Write your feedback here..."
                           value={feedbackInputs[interview._id] || ""}
@@ -168,18 +173,17 @@ const MyInterviews = () => {
                           type="number"
                           min="1"
                           max="5"
-                          className="border p-2 w-full mt-2"
+                          className="border p-2 w-full mt-2 rounded-md"
                           placeholder="Rating (1-5)"
                           value={selectedRating[interview._id] || ""}
                           onChange={(e) => handleRatingChange(interview._id, e.target.value)}
                         />
 
                         <button
-                          className="bg-blue-500 text-white p-2 rounded mt-2"
+                          className="bg-blue-500 text-white p-2 rounded-md mt-3 hover:bg-blue-600"
                           onClick={() => handleSubmitFeedback(interview._id)}
                         >
                           Submit Feedback
-                          
                         </button>
                       </div>
                     )}
@@ -189,7 +193,7 @@ const MyInterviews = () => {
             );
           })
         ) : (
-          <p>No interviews found.</p>
+          <p className="text-center text-gray-500">No interviews found.</p>
         )}
       </div>
     </div>

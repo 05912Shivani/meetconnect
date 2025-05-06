@@ -1,7 +1,7 @@
 const initialState = {
-    user: null,
+    user: null,// Holds the logged-in user data
     isAuthenticated: false,
-    loading: false,
+    loading: false,// Indicates if a request is in progress
     error: null,
   };
   
@@ -9,7 +9,7 @@ const initialState = {
     switch (action.type) {
       case "LOGIN_REQUEST":
       case "REGISTER_REQUEST":
-        return { ...state, loading: true, error: null };
+        return { ...state, loading: true, error: null };// Set loading true and reset error on login/register request
   
       case "LOGIN_SUCCESS":
       case "REGISTER_SUCCESS":
@@ -23,7 +23,7 @@ const initialState = {
         return { ...state, user: null, isAuthenticated: false };
   
       default:
-        return state;
+        return state;// Return current state for unknown actions
     }
   };
   

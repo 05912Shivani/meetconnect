@@ -7,10 +7,10 @@ import { feedbackReducer } from "./feedbackReducer";
 
 const rootReducer = combineReducers({
   auth: authReducer, 
-  interviewsState: interviewReducer, // ✅ Ensure correct key name
-  profile: profileReducer,
-  resources: resourceReducer,
-  feedbackState: feedbackReducer // ✅ Added feedbackReducer
+  interviewsState: interviewReducer, //interview reducer
+  profile: profileReducer,//profile reducer
+  resources: resourceReducer,//resourceReducer
+  feedbackState: feedbackReducer // Added feedbackReducer
 
 });
 

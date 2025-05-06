@@ -6,17 +6,17 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (userData, { rejectWithValue }) => {
     try {
-      console.log("API Call Started:", userData); // Debug log
+      console.log("API Call Started:", userData); 
 
       const response = await axios.post("http://localhost:5000/api/auth/login", userData, {
         withCredentials: true,
       });
 
-      console.log("API Response:", response.data); // Debug log
+      console.log("API Response:", response.data); 
 
       return response.data;
     } catch (error) {
-      console.log("API Error:", error.response?.data); // Debug log
+      console.log("API Error:", error.response?.data); 
       return rejectWithValue(error.response?.data?.message || "Login failed");
     }
   }

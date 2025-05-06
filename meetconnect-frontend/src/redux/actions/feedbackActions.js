@@ -1,4 +1,3 @@
-// feedbackActions.js
 export const fetchFeedback = (interviewId) => async (dispatch) => {
     dispatch({ type: "FETCH_FEEDBACK_REQUEST" });
   
@@ -13,7 +12,7 @@ export const fetchFeedback = (interviewId) => async (dispatch) => {
       }
   
       const data = await response.json();
-      console.log("📌 Fetched Feedback:", data); // Debugging
+      console.log("📌 Fetched Feedback:", data); 
   
       dispatch({ type: "FETCH_FEEDBACK_SUCCESS", payload: { interviewId, feedback: data } });
     } catch (error) {
@@ -24,7 +23,7 @@ export const fetchFeedback = (interviewId) => async (dispatch) => {
   
   export const submitFeedback = (feedbackData) => async (dispatch) => {
     try {
-      console.log("🚀 Submitting Feedback:", feedbackData); // Debugging
+      console.log("🚀 Submitting Feedback:", feedbackData); 
   
       // Ensure rating is defined (default 0 or another sensible value)
       if (feedbackData.rating === undefined) {
@@ -45,7 +44,7 @@ export const fetchFeedback = (interviewId) => async (dispatch) => {
       }
   
       const data = await response.json();
-      console.log("✅ Feedback Submitted Successfully:", data);
+      console.log("Feedback Submitted Successfully:", data);
   
       dispatch({ type: "SUBMIT_FEEDBACK_SUCCESS", payload: data });
     } catch (error) {

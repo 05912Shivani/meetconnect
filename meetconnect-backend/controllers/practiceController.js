@@ -1,6 +1,6 @@
 const PracticeQuestion = require("../models/PracticeQuestion");
 
-// ✅ Fetch paginated practice questions (filtered by category if provided)
+// Fetch paginated practice questions (filtered by category if provided)
 const getPracticeQuestions = async (req, res) => {
     try {
         let { category, page = 1, limit = 10 } = req.query;
@@ -9,7 +9,7 @@ const getPracticeQuestions = async (req, res) => {
 
         const filter = category ? { category } : {}; 
 
-        // ✅ Always apply pagination
+        //  Always apply pagination
         const questions = await PracticeQuestion.find(filter)
             .skip((page - 1) * limit)
             .limit(limit);
@@ -34,7 +34,7 @@ const getPracticeQuestions = async (req, res) => {
 };
 
 
-// ✅ Fetch all questions (optionally filtered by category)
+// Fetch all questions (optionally filtered by category)
 const getAllQuestions = async (req, res) => {
     try {
         const { category } = req.query;
@@ -52,7 +52,7 @@ const getAllQuestions = async (req, res) => {
     }
 };
 
-// ✅ Add a new practice question (Admin Use)
+// Add a new practice question (Admin Use)
 const addPracticeQuestion = async (req, res) => {
     try {
         const { question, answer, category } = req.body;
