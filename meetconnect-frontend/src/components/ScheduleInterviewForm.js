@@ -5,9 +5,8 @@ import { scheduleInterview, fetchInterviews } from "../redux/actions/interviewAc
 
 const ScheduleInterviewForm = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Initialize navigation
+  const navigate = useNavigate();
 
-  // Get authentication state from Redux
   const isAuthenticated = useSelector((state) => !!state.auth.user);
 
   const [interviewData, setInterviewData] = useState({
@@ -47,8 +46,7 @@ const ScheduleInterviewForm = () => {
 
     try {
       await dispatch(scheduleInterview(interviewData));
-      dispatch(fetchInterviews()); // Immediately refetch interviews
-      // Show alert on success
+      dispatch(fetchInterviews());
       alert("Interview scheduled successfully!");
       navigate("/my-interviews");
     } catch (error) {
@@ -103,18 +101,35 @@ const ScheduleInterviewForm = () => {
           />
         </div>
 
+        {/* Interviewer dropdown with 15 random names */}
         <div>
           <label className="block font-medium">Choose Interviewer:</label>
-          <input
-            type="text"
+          <select
             name="interviewer"
             onChange={handleChange}
+            value={interviewData.interviewer}
             required
             className="border p-2 w-full rounded-md"
-          />
+          >
+            <option value="">Select Interviewer</option>
+            <option value="Shivani Sharma">Shivani Sharma</option>
+            <option value="Samantha Lee">Samantha Lee</option>
+            <option value="Michael Chen">Michael Chen</option>
+            <option value=" Alex Johnson">Alex Johnson</option>
+            <option value="David Kim">David Kim</option>
+            <option value="Emily Rivera">Emily Rivera</option>
+            <option value="Rohan Mehta">Rohan Mehta</option>
+            <option value="Liam Patel">Liam Patel</option>
+            <option value="Ava Thompson">Ava Thompson</option>
+            <option value="Noah Gupta">Noah Gupta</option>
+            <option value="Sophia Zhang">Sophia Zhang</option>
+            <option value="Daniel White">Daniel White</option>
+            <option value="Olivia Martinez">Olivia Martinez</option>
+            <option value="Ethan Walker">Ethan Walker</option>
+            <option value="Chloe Das">Chloe Das</option>
+          </select>
         </div>
 
-        {/* Resources Input Fields */}
         <div className="mt-4">
           <h3 className="text-lg font-semibold mb-2">Add Resources (Optional):</h3>
 
@@ -147,7 +162,6 @@ const ScheduleInterviewForm = () => {
           </button>
         </div>
 
-        {/* Display Added Resources */}
         {interviewData.resources.length > 0 && (
           <ul className="mt-4 list-disc pl-5">
             {interviewData.resources.map((res, index) => (
@@ -168,12 +182,14 @@ const ScheduleInterviewForm = () => {
 
         <button
           type="submit"
-          className={`px-4 py-2 rounded w-full ${isAuthenticated ? "bg-green-500 text-white" : "bg-gray-400"}`}
+          className={`px-4 py-2 rounded w-full ${
+            isAuthenticated ? "bg-green-500 text-white" : "bg-gray-400"
+          }`}
           onClick={(e) => {
             if (!isAuthenticated) {
-              e.preventDefault(); // Prevent form submission
+              e.preventDefault();
               alert("Please log in to schedule an interview.");
-              navigate("/login"); //  Redirect to login
+              navigate("/login");
             }
           }}
         >
