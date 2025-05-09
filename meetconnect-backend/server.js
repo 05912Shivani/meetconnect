@@ -15,6 +15,7 @@ const app = express();
 
 app.use(express.json());
 
+app.set("trust proxy", 1);
 
 app.use(cors({ origin: "https://meetconnect-owf4.onrender.com", credentials: true }));
 
