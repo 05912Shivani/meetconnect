@@ -15,7 +15,7 @@ const MyProfile = () => {
     const fetchUserProfile = async () => {
       try {
         const response = await fetch("https://meet-connect-backend.onrender.com/api/auth/profile", {
-          credentials: "include", // Include cookies for session auth
+          credentials: "include" // Include cookies for session auth
         });
         const data = await response.json();
 
