@@ -56,3 +56,6 @@ Get All Blogs:https://meet-connect-backend.onrender.com/api/blogs
 Get Blogs by category :https://meet-connect-backend.onrender.com/api/blogs?category=Frontend
 Get All Questions:https://meet-connect-backend.onrender.com/api/practice/practice-questions
 Get Practice Questions By Category:https://meet-connect-backend.onrender.com/api/practice/practice-questions?category=Frontend
+
+This is POSTMAN API Testing Link:
+https://documenter.getpostman.com/view/41681098/2sB2j99A3y
